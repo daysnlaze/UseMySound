@@ -28,22 +28,26 @@
       pointer-events: none;
       user-select: none;
     }
-
-    /* КРУГ */
-   .circle {
+/* КРУГ */
+.circle {
   position: absolute;
   top: 21px;
   left: 21px;
-  width: 80%;
+
+  width: 220px; /* фикс размер */
+  height: 220px;
+
   animation: spin 12s linear infinite;
   pointer-events: none;
   filter: drop-shadow(0 0 10px white);
 
   transform-origin: center;
-     @keyframes spin {
+}
+
+/* АНИМАЦИЯ ВНЕ КЛАССА */
+@keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
 }
 
     /* КНОПКИ */
