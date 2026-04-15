@@ -37,14 +37,22 @@
       width: 110%;
     }
 
-    /* КРУТИТСЯ ТОЛЬКО ТЕКСТ */
-    .circle-text {
+    /* КОНТЕЙНЕР ДЛЯ ВРАЩЕНИЯ */
+    .circle-spin {
       width: 100%;
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       animation: spin 12s linear infinite;
       transform-origin: center center;
+      will-change: transform;
+    }
 
+    /* САМА КАРТИНКА */
+    .circle-spin img {
+      width: 100%;
+      display: block; /* убирает смещение */
       pointer-events: none;
       filter: drop-shadow(0 0 10px white);
     }
@@ -95,9 +103,11 @@
     <!-- ФОН -->
     <img src="design.png" class="bg" draggable="false">
 
-    <!-- КРУГ (ТВОЙ PNG) -->
+    <!-- КРУГ (ТЕКСТ КРУТИТСЯ ИДЕАЛЬНО) -->
     <div class="circle-wrapper">
-      <img src="circle.png" class="circle-text">
+      <div class="circle-spin">
+        <img src="circle.png">
+      </div>
     </div>
 
     <!-- КНОПКИ -->
