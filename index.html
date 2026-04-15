@@ -8,19 +8,36 @@
       margin: 0;
       background: black;
       font-family: sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
-    /* ОБЁРТКА */
     .container {
       position: relative;
       width: 100%;
+      animation: fadeIn 2s ease-in;
     }
 
-    /* КАРТИНКА */
+    /* ФОН */
     .bg {
       width: 100%;
       display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* КРУГ */
+    .circle {
+      position: absolute;
+      top: 12%;
+      left: 12%;
+      width: 180px;
+      animation: spin 12s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     /* КНОПКИ */
@@ -37,14 +54,13 @@
       font-size: 16px;
     }
 
-    /* HOVER */
     .btn:hover {
       transform: scale(1.1);
       background: #1db954;
       border-color: #1db954;
     }
 
-    /* АНИМАЦИЯ ПОЯВЛЕНИЯ */
+    /* ПЛАВНОЕ ПОЯВЛЕНИЕ */
     .fade {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -54,16 +70,6 @@
       to { opacity: 1; }
     }
 
-    /* ПЛАВАЮЩАЯ АНИМАЦИЯ */
-    .float {
-      animation: float 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes float {
-      from { transform: translateY(0px); }
-      to { transform: translateY(-10px); }
-    }
-
   </style>
 </head>
 
@@ -71,19 +77,22 @@
 
   <div class="container">
 
-    <!-- ТВОЙ ДИЗАЙН -->
-    <img src="design.jpg" class="bg">
+    <!-- ФОН -->
+    <img src="design.png" class="bg" draggable="false">
+
+    <!-- КРУГ (ОТДЕЛЬНЫЙ PNG) -->
+    <img src="circle.png" class="circle">
 
     <!-- КНОПКИ -->
-    <button class="btn fade float" style="top:72%; left:28%;">
+    <button class="btn fade" style="top:72%; left:28%;">
       Upload Track
     </button>
 
-    <button class="btn fade float" style="top:72%; left:43%; animation-delay:0.2s;">
+    <button class="btn fade" style="top:72%; left:43%; animation-delay:0.2s;">
       Explore Sound
     </button>
 
-    <button class="btn fade float" style="top:72%; left:58%; animation-delay:0.4s;">
+    <button class="btn fade" style="top:72%; left:58%; animation-delay:0.4s;">
       How It Works
     </button>
 
