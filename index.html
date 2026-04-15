@@ -28,11 +28,12 @@
     /* КРУГ */
     .circle {
       position: absolute;
-      top: 12%;
-      left: 12%;
-      width: 180px;
+      top: 11%;
+      left: 7%;
+      width: 320px;
       animation: spin 12s linear infinite;
       pointer-events: none;
+      filter: drop-shadow(0 0 10px white);
     }
 
     @keyframes spin {
@@ -60,7 +61,7 @@
       border-color: #1db954;
     }
 
-    /* ПЛАВНОЕ ПОЯВЛЕНИЕ */
+    /* ПОЯВЛЕНИЕ */
     .fade {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -80,7 +81,7 @@
     <!-- ФОН -->
     <img src="design.png" class="bg" draggable="false">
 
-    <!-- КРУГ (ОТДЕЛЬНЫЙ PNG) -->
+    <!-- КРУГ -->
     <img src="circle.png" class="circle">
 
     <!-- КНОПКИ -->
