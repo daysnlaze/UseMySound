@@ -62,16 +62,18 @@
       width: 420px;
       text-align: center;
       z-index: 5;
-
-      transform: translateY(-18px); /* 👈 ВОТ ЭТО ПОДНЯЛО ВСЁ */
     }
 
-    /* BACK КНОПКА */
-    .back-btn {
-      position: absolute;
-      top: 0;
-      left: -80px;
+    /* 🔥 HEADER LINE */
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
 
+    .back-btn {
       padding: 8px 16px;
       background: rgba(0,0,0,0.6);
       border: 1px solid #444;
@@ -85,9 +87,16 @@
       transform: scale(1.05);
     }
 
-    h1 {
-      margin: 0;
-      font-size: 20px;
+    /* ТЕПЕРЬ ТУТ ВМЕСТО H1 INPUT */
+    .title-input {
+      width: 220px;
+      padding: 8px 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #444;
+      color: white;
+      text-align: center;
+      font-size: 14px;
+      outline: none;
     }
 
     input, textarea, select {
@@ -140,7 +149,6 @@
       margin-top: 10px;
       max-height: 90px;
       overflow-y: auto;
-      position: relative;
 
       -webkit-mask-image: linear-gradient(
         to bottom,
@@ -188,11 +196,12 @@
 
     <div class="content">
 
-      <button class="back-btn" onclick="location.href='index.html'">← Back</button>
+      <!-- 🔥 BACK + TITLE INPUT -->
+      <div class="header-row">
+        <button class="back-btn" onclick="location.href='index.html'">← Back</button>
+        <input class="title-input" type="text" placeholder="Track Title">
+      </div>
 
-      <h1>Upload Track</h1>
-
-      <input type="text" placeholder="Track Title">
       <textarea placeholder="Track Description"></textarea>
       <input type="file" accept=".mp3,.wav,.ogg,audio/*">
 
