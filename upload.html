@@ -62,9 +62,11 @@
       width: 420px;
       text-align: center;
       z-index: 5;
+
+      transform: translateY(-18px); /* 👈 ВОТ ЭТО ПОДНЯЛО ВСЁ */
     }
 
-    /* BACK КНОПКА (отдельно от заголовка) */
+    /* BACK КНОПКА */
     .back-btn {
       position: absolute;
       top: 0;
@@ -83,7 +85,6 @@
       transform: scale(1.05);
     }
 
-    /* ТВОЙ ЦЕНТРАЛЬНЫЙ ЗАГОЛОВОК НЕ ТРОГАЕМ */
     h1 {
       margin: 0;
       font-size: 20px;
@@ -187,10 +188,8 @@
 
     <div class="content">
 
-      <!-- BACK КНОПКА (НЕ ТРОГАЕТ ЦЕНТР) -->
       <button class="back-btn" onclick="location.href='index.html'">← Back</button>
 
-      <!-- ЦЕНТР НЕ ТРОГАЕМ -->
       <h1>Upload Track</h1>
 
       <input type="text" placeholder="Track Title">
