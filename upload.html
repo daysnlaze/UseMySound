@@ -59,7 +59,7 @@
 
     .content {
       position: relative;
-      width: 480px;
+      width: 420px;
       text-align: center;
       z-index: 5;
     }
@@ -89,33 +89,8 @@
     }
 
     /* ТЕГИ */
-    .tags-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .tags-left {
-      width: 65%;
+    .tags-container {
       position: relative;
-    }
-
-    .tags-right {
-      width: 35%;
-      max-height: 180px;
-      overflow-y: auto;
-    }
-
-    .tags-right span {
-      display: inline-block;
-      border: 1px solid #444;
-      padding: 5px 10px;
-      margin: 3px;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .tags-right span:hover {
-      border-color: white;
     }
 
     .suggestions {
@@ -145,6 +120,25 @@
       margin: 3px;
       font-size: 12px;
       cursor: pointer;
+    }
+
+    .all-tags {
+      margin-top: 10px;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+
+    .all-tags span {
+      display: inline-block;
+      border: 1px solid #444;
+      padding: 5px 10px;
+      margin: 3px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .all-tags span:hover {
+      border-color: white;
     }
 
     .btn {
@@ -184,18 +178,17 @@
 
       <input type="number" placeholder="Price ($)">
 
-      <!-- ТЕГИ -->
-      <div class="tags-row">
-
-        <div class="tags-left">
-          <input type="text" id="tagInput" placeholder="Add tags...">
-          <div class="suggestions" id="suggestions"></div>
-          <div class="selected-tags" id="selectedTags"></div>
-        </div>
-
-        <div class="tags-right" id="popularTags"></div>
-
+      <!-- ВВОД -->
+      <div class="tags-container">
+        <input type="text" id="tagInput" placeholder="Add tags...">
+        <div class="suggestions" id="suggestions"></div>
       </div>
+
+      <!-- ВЫБРАННЫЕ -->
+      <div class="selected-tags" id="selectedTags"></div>
+
+      <!-- ВСЕ ТЕГИ СНИЗУ -->
+      <div class="all-tags" id="allTags"></div>
 
       <button class="btn">Upload</button>
 
@@ -205,18 +198,15 @@
 
 <script>
 const tagList = [
-"sad","happy","dark","emotional","aggressive","melancholic","romantic","angry","lonely","hope","fear","nostalgic","sadness",
-"chill","relax","calm","energetic","uplifting","smooth","soft","hard","heavy","dreamy","spacey","vibe","mood",
-"slow","fast","midtempo","groovy","bouncy","ambient","background","loop","flow","swing",
-"trap","drill","lofi","hiphop","boom bap","house","techno","edm","pop","rock","jazz","funk","rnb","phonk","garage","dubstep","dnb",
-"piano","guitar","violin","synth","bass","drums","808","strings","keys","pad","lead","pluck",
-"cinematic","epic","soundtrack","movie","game","anime","intro","outro","trailer",
-"night","day","summer","winter","rain","city","club","party","sunset","sunrise",
-"vocal","instrumental","beat","mix","master","demo","sample",
-"uk drill","jersey club","rage","pluggnb","hyperpop","afrobeats","latin","kpop","jpop",
-"dark trap","sad piano","sad guitar","emotional piano","ambient pad","space ambient",
-"club banger","hard bass","soft melody","clean mix","lofi chill","study music",
-"focus","sleep","meditation","deep","atmospheric","underground","mainstream"
+"sad","happy","dark","emotional","aggressive","melancholic","romantic","angry","lonely","nostalgic",
+"chill","relax","calm","energetic","uplifting","smooth","soft","hard","heavy","dreamy",
+"slow","fast","groovy","bouncy","ambient","background",
+"trap","drill","lofi","hiphop","house","techno","edm","pop","rock","jazz","funk","rnb","phonk",
+"piano","guitar","violin","synth","bass","drums","808",
+"cinematic","epic","soundtrack","anime","game",
+"night","summer","rain","city","club","party",
+"vocal","instrumental","loop","beat",
+"rage","hyperpop","afrobeats","latin","kpop"
 ];
 
 let selected = [];
@@ -224,15 +214,17 @@ let selected = [];
 const input = document.getElementById('tagInput');
 const suggestions = document.getElementById('suggestions');
 const selectedDiv = document.getElementById('selectedTags');
-const popularDiv = document.getElementById('popularTags');
+const allTagsDiv = document.getElementById('allTags');
 
+// ВСЕ ТЕГИ СНИЗУ
 tagList.forEach(tag => {
   const el = document.createElement('span');
   el.innerText = tag;
   el.onclick = () => addTag(tag);
-  popularDiv.appendChild(el);
+  allTagsDiv.appendChild(el);
 });
 
+// ПОИСК
 input.addEventListener('input', () => {
   const value = input.value.toLowerCase();
   suggestions.innerHTML = '';
