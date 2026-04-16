@@ -29,7 +29,7 @@
       user-select: none;
     }
 
-    /* ОБЁРТКА (ТВОИ РАЗМЕРЫ НЕ ТРОГАЕМ) */
+    /* ОБЁРТКА */
     .circle-wrapper {
       position: absolute;
       top: 20px;
@@ -37,27 +37,24 @@
       width: 50%;
     }
 
-    /* КОНТЕЙНЕР ДЛЯ ВРАЩЕНИЯ */
+    /* ВРАЩЕНИЕ */
     .circle-spin {
       width: 60%;
       display: flex;
       justify-content: center;
       align-items: center;
-
       animation: spin 12s linear infinite;
       transform-origin: center center;
       will-change: transform;
     }
 
-    /* САМА КАРТИНКА */
     .circle-spin img {
       width: 100%;
-      display: block; /* убирает смещение */
+      display: block;
       pointer-events: none;
       filter: drop-shadow(0 0 10px white);
     }
 
-    /* АНИМАЦИЯ */
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -75,11 +72,20 @@
       transition: 0.3s;
       backdrop-filter: blur(6px);
       font-size: 15px;
+      z-index: 1;
     }
 
     .btn:hover {
       transform: scale(1.1);
       background: #1db954;
+      border-color: #1db954;
+    }
+
+    /* АКТИВНАЯ */
+    .btn.active {
+      transform: scale(1.05);
+      z-index: 10;
+      background: rgba(0,0,0,0.85);
       border-color: #1db954;
     }
 
@@ -103,7 +109,7 @@
     <!-- ФОН -->
     <img src="design2.png" class="bg" draggable="false">
 
-    <!-- КРУГ (ТЕКСТ КРУТИТСЯ ИДЕАЛЬНО) -->
+    <!-- КРУГ -->
     <div class="circle-wrapper">
       <div class="circle-spin">
         <img src="circle2.png">
@@ -124,6 +130,17 @@
     </button>
 
   </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.btn');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
 
 </body>
 </html>
