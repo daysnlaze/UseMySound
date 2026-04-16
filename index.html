@@ -75,18 +75,20 @@
       z-index: 1;
     }
 
+    /* ХОВЕР (теперь белый, без зелёного) */
     .btn:hover {
       transform: scale(1.1);
-      background: #1db954;
-      border-color: #1db954;
+      background: rgba(255,255,255,0.1);
+      border-color: white;
     }
 
-    /* АКТИВНАЯ */
+    /* АКТИВНАЯ КНОПКА */
     .btn.active {
       transform: scale(1.05);
       z-index: 10;
       background: rgba(0,0,0,0.85);
-      border-color: #1db954;
+      border-color: white;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
     }
 
     /* ПЛАВНОЕ ПОЯВЛЕНИЕ */
