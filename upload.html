@@ -58,11 +58,31 @@
     }
 
     .content {
-      <button class="back-btn" onclick="goHome()">← Back</button>
       position: relative;
       width: 420px;
       text-align: center;
       z-index: 5;
+    }
+
+    /* КНОПКА НАЗАД */
+    .back-btn {
+      position: absolute;
+      top: -60px;
+      left: 0;
+
+      padding: 8px 20px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid #444;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 13px;
+    }
+
+    .back-btn:hover {
+      transform: scale(1.05);
+      border-color: white;
+      background: rgba(255,255,255,0.1);
     }
 
     h1 {
@@ -82,7 +102,6 @@
       height: 70px;
     }
 
-    /* ТЕГИ */
     .tags-container {
       position: relative;
     }
@@ -151,13 +170,16 @@
     <img src="circle2.png" class="circle-big">
 
     <div class="content">
+
+      <!-- КНОПКА НАЗАД -->
+      <button class="back-btn" onclick="goHome()">← Back</button>
+
       <h1>Upload Track</h1>
 
       <input type="text" id="title" placeholder="Track Title">
 
       <textarea id="description" placeholder="Track Description"></textarea>
 
-      <!-- ФАЙЛ (исправленный) -->
       <input type="file" id="fileInput" accept=".mp3,.wav,.ogg,audio/*">
 
       <select id="license">
@@ -169,7 +191,6 @@
 
       <input type="number" id="price" placeholder="Price ($)">
 
-      <!-- ТЕГИ -->
       <div class="tags-container">
         <input type="text" id="tagInput" placeholder="Add tags...">
         <div class="suggestions" id="suggestions"></div>
@@ -179,100 +200,14 @@
       <div class="popular-tags" id="popularTags"></div>
 
       <button class="btn" onclick="upload()">Upload</button>
+
     </div>
   </div>
 </div>
 
 <script>
-const tagList = [
-"sad","happy","dark","emotional","aggressive","melancholic","romantic",
-"chill","relax","calm","energetic","uplifting",
-"slow","fast","groovy","bouncy","smooth","heavy","ambient",
-"trap","drill","lofi","hiphop","house","techno","edm","pop","rock","jazz",
-"piano","guitar","violin","synth","bass","drums","808",
-"cinematic","epic","space","dreamy","night","summer","rain","love",
-"vocal","instrumental","loop","background","soundtrack"
-];
-
-let selected = [];
-
-const input = document.getElementById('tagInput');
-const suggestions = document.getElementById('suggestions');
-const selectedDiv = document.getElementById('selectedTags');
-const popularDiv = document.getElementById('popularTags');
-
-const popular = ["sad","trap","lofi","chill","piano","guitar","epic","ambient"];
-
-popular.forEach(tag => {
-  const el = document.createElement('span');
-  el.innerText = tag;
-  el.onclick = () => addTag(tag);
-  popularDiv.appendChild(el);
-});
-
-input.addEventListener('input', () => {
-  const value = input.value.toLowerCase();
-  suggestions.innerHTML = '';
-
-  if (!value) {
-    suggestions.style.display = 'none';
-    return;
-  }
-
-  const filtered = tagList.filter(tag => tag.includes(value));
-
-  filtered.forEach(tag => {
-    const div = document.createElement('div');
-    div.innerText = tag;
-    div.onclick = () => addTag(tag);
-    suggestions.appendChild(div);
-  });
-
-  suggestions.style.display = 'block';
-});
-
-function addTag(tag) {
-  if (!selected.includes(tag)) {
-    selected.push(tag);
-    renderTags();
-  }
-  input.value = '';
-  suggestions.style.display = 'none';
-}
-
-function removeTag(tag) {
-  selected = selected.filter(t => t !== tag);
-  renderTags();
-}
-
-function renderTags() {
-  selectedDiv.innerHTML = '';
-  selected.forEach(tag => {
-    const el = document.createElement('span');
-    el.innerText = tag + " ✕";
-    el.onclick = () => removeTag(tag);
-    selectedDiv.appendChild(el);
-  });
-}
-
-function upload() {
-  const title = document.getElementById('title').value;
-  const description = document.getElementById('description').value;
-  const file = document.getElementById('fileInput').files[0];
-
-  if (!file) {
-    alert("Выбери аудио файл");
-    return;
-  }
-
-  localStorage.setItem('trackTitle', title);
-  localStorage.setItem('trackDescription', description);
-  localStorage.setItem('trackTags', selected.join(', '));
-
-  const url = URL.createObjectURL(file);
-  localStorage.setItem('trackAudio', url);
-
-  window.location.href = 'track.html';
+function goHome() {
+  window.location.href = "index.html";
 }
 </script>
 
