@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload - UseMySound</title>
 
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* КРУГИ */
+    .circle {
+      position: relative;
+      width: 130vw;
+      height: 130vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle img {
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(0 0 15px rgba(255,255,255,0.25));
+    }
+
+    .circle-xl {
+      width: 110%;
+      animation: spin1 40s linear infinite;
+      opacity: 0.4;
+    }
+
+    .circle-big {
+      width: 80%;
+      animation: spin2 25s linear infinite;
+      opacity: 0.6;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.15));
+    }
+
+    @keyframes spin1 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spin2 {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* КОНТЕНТ */
+    .content {
+      position: relative;
+      width: 400px;
+      text-align: center;
+      z-index: 5;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    /* ПОЛЯ */
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #444;
+      color: white;
+      outline: none;
+    }
+
+    input::file-selector-button {
+      background: white;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    /* КНОПКА */
+    .btn {
+      margin-top: 10px;
+      padding: 12px 40px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      border: 1px solid #444;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      border-color: white;
+      background: rgba(255,255,255,0.1);
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="circle">
+      <img src="circle2.png" class="circle-xl">
+      <img src="circle2.png" class="circle-big">
+
+      <div class="content">
+        <h1>Upload Track</h1>
+
+        <input type="text" placeholder="Track Title">
+
+        <input type="file" accept="audio/*">
+
+        <select>
+          <option>License Type</option>
+          <option>Exclusive</option>
+          <option>Non-exclusive</option>
+          <option>Rent</option>
+        </select>
+
+        <input type="number" placeholder="Price ($)">
+
+        <button class="btn">Upload</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
