@@ -70,7 +70,11 @@
       align-items: center;
       justify-content: center;
       gap: 12px;
+
       margin-bottom: 10px;
+
+      /* 👇 опускаем всю строку */
+      transform: translateY(6px);
     }
 
     .back-btn {
@@ -87,16 +91,9 @@
       transform: scale(1.05);
     }
 
-    /* ТЕПЕРЬ ТУТ ВМЕСТО H1 INPUT */
-    .title-input {
-      width: 220px;
-      padding: 8px 10px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid #444;
-      color: white;
-      text-align: center;
-      font-size: 14px;
-      outline: none;
+    h1 {
+      margin: 0;
+      font-size: 20px;
     }
 
     input, textarea, select {
@@ -196,10 +193,10 @@
 
     <div class="content">
 
-      <!-- 🔥 BACK + TITLE INPUT -->
+      <!-- HEADER -->
       <div class="header-row">
         <button class="back-btn" onclick="location.href='index.html'">← Back</button>
-        <input class="title-input" type="text" placeholder="Track Title">
+        <h1>Track Title</h1>
       </div>
 
       <textarea placeholder="Track Description"></textarea>
