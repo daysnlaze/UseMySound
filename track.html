@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Track - UseMySound</title>
 
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle {
+      position: relative;
+      width: 130vw;
+      height: 130vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle img {
+      position: absolute;
+      pointer-events: none;
+      filter: drop-shadow(0 0 15px rgba(255,255,255,0.25));
+    }
+
+    .circle-xl {
+      width: 110%;
+      animation: spin1 40s linear infinite;
+      opacity: 0.4;
+    }
+
+    .circle-big {
+      width: 80%;
+      animation: spin2 25s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes spin1 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spin2 {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    .content {
+      position: relative;
+      width: 400px;
+      text-align: center;
+      z-index: 5;
+    }
+
+    audio {
+      width: 100%;
+      margin: 15px 0;
+      filter: invert(1);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <div class="circle">
+    <img src="circle2.png" class="circle-xl">
+    <img src="circle2.png" class="circle-big">
+
+    <div class="content">
+      <h1 id="title">Track</h1>
+      <p id="description"></p>
+
+      <audio controls id="player"></audio>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.getElementById('title').innerText =
+  localStorage.getItem('trackTitle') || 'No title';
+
+document.getElementById('description').innerText =
+  localStorage.getItem('trackDescription') || 'No description';
+
+document.getElementById('player').src =
+  localStorage.getItem('trackAudio');
+</script>
+
+</body>
+</html>
