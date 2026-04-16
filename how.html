@@ -26,33 +26,41 @@
     /* ОБЩИЙ КРУГ */
     .circle {
       position: relative;
-      width: 120vw;
-      height: 120vw;
+      width: 130vw;
+      height: 130vw;
       display: flex;
       justify-content: center;
       align-items: center;
     }
 
-    /* ОБА КРУГА */
+    /* ВСЕ КРУГИ */
     .circle img {
       position: absolute;
       pointer-events: none;
+      filter: drop-shadow(0 0 15px rgba(255,255,255,0.25));
     }
 
-    /* БОЛЬШОЙ */
+    /* САМЫЙ БОЛЬШОЙ */
+    .circle-xl {
+      width: 120%;
+      animation: spin1 40s linear infinite;
+      opacity: 0.5;
+    }
+
+    /* СРЕДНИЙ */
     .circle-big {
       width: 100%;
-      animation: spin1 25s linear infinite;
+      animation: spin2 25s linear infinite;
     }
 
     /* МАЛЕНЬКИЙ */
     .circle-small {
-      width: 70%;
-      animation: spin2 18s linear infinite;
+      width: 65%;
+      animation: spin3 18s linear infinite;
       opacity: 0.8;
     }
 
-    /* ВРАЩЕНИЕ */
+    /* ВРАЩЕНИЯ */
     @keyframes spin1 {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -63,23 +71,28 @@
       to { transform: rotate(0deg); }
     }
 
-    /* ТЕКСТ */
+    @keyframes spin3 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ТЕКСТ В ЦЕНТРЕ */
     .content {
       position: relative;
-      width: 60%;
+      width: 55%;
       text-align: center;
-      line-height: 1.6;
-      font-size: 15px;
-      z-index: 2;
+      line-height: 1.7;
+      font-size: 16px;
+      z-index: 5;
     }
 
     h1 {
       margin-bottom: 20px;
-      font-size: 26px;
+      font-size: 28px;
     }
 
     p {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       opacity: 0.9;
     }
 
@@ -91,6 +104,7 @@
   <div class="container">
 
     <div class="circle">
+      <img src="circle2.png" class="circle-xl">
       <img src="circle2.png" class="circle-big">
       <img src="circle2.png" class="circle-small">
 
@@ -102,22 +116,23 @@
         </p>
 
         <p>
-          Artists upload their tracks, set prices and choose how their music can be used.
-          Buyers can explore sounds, preview them and purchase the right license.
+          Artists upload their tracks, set prices and define how their music can be used.
+          Buyers can explore sounds, preview them and choose the right license.
         </p>
 
         <p>
-          Music can be sold as exclusive, non-exclusive or rented for temporary use.
-          Each option gives different rights depending on the project.
+          Music can be sold as exclusive, non-exclusive or rented for temporary use,
+          depending on the needs of the project.
         </p>
 
         <p>
-          Payments are handled securely, and the creator receives the money after delivery.
+          Secure payments ensure that creators get paid, while buyers receive instant access
+          to high-quality music.
         </p>
 
         <p>
-          This allows musicians to earn from their work, while creators get instant access
-          to unique music for videos, games and content.
+          This creates a simple system where artists earn from their work and creators
+          get unique sound for videos, games and content.
         </p>
 
       </div>
