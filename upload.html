@@ -18,9 +18,6 @@
 
     .container {
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     .circle {
@@ -48,7 +45,6 @@
       width: 80%;
       animation: spin2 25s linear infinite;
       opacity: 0.6;
-      filter: drop-shadow(0 0 8px rgba(255,255,255,0.15));
     }
 
     @keyframes spin1 {
@@ -63,12 +59,16 @@
 
     .content {
       position: relative;
-      width: 400px;
+      width: 420px;
       text-align: center;
       z-index: 5;
     }
 
-    input, textarea {
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    input, textarea, select {
       width: 100%;
       padding: 12px;
       margin-bottom: 10px;
@@ -78,14 +78,57 @@
     }
 
     textarea {
-      height: 80px;
+      height: 70px;
+    }
+
+    /* ТЕГИ */
+    .tags-container {
+      position: relative;
+    }
+
+    .suggestions {
+      position: absolute;
+      width: 100%;
+      background: black;
+      border: 1px solid #444;
+      max-height: 120px;
+      overflow-y: auto;
+      display: none;
+      z-index: 10;
+    }
+
+    .suggestions div {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    .suggestions div:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .selected-tags span {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      padding: 5px 10px;
+      margin: 3px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .popular-tags span {
+      display: inline-block;
+      border: 1px solid #444;
+      padding: 5px 10px;
+      margin: 3px;
+      font-size: 12px;
+      cursor: pointer;
     }
 
     .btn {
       padding: 12px 40px;
       background: rgba(0,0,0,0.6);
-      color: white;
       border: 1px solid #444;
+      color: white;
       cursor: pointer;
       transition: 0.3s;
     }
@@ -95,6 +138,7 @@
       border-color: white;
       background: rgba(255,255,255,0.1);
     }
+
   </style>
 </head>
 
@@ -109,35 +153,114 @@
       <h1>Upload Track</h1>
 
       <input type="text" id="title" placeholder="Track Title">
+
       <textarea id="description" placeholder="Track Description"></textarea>
+
       <input type="file" id="fileInput" accept="audio/*">
+
+      <select id="license">
+        <option>License Type</option>
+        <option>Exclusive</option>
+        <option>Non-exclusive</option>
+        <option>Rent</option>
+      </select>
+
+      <input type="number" id="price" placeholder="Price ($)">
+
+      <!-- ТЕГИ -->
+      <div class="tags-container">
+        <input type="text" id="tagInput" placeholder="Add tags...">
+        <div class="suggestions" id="suggestions"></div>
+      </div>
+
+      <div class="selected-tags" id="selectedTags"></div>
+      <div class="popular-tags" id="popularTags"></div>
 
       <button class="btn" onclick="upload()">Upload</button>
     </div>
-
   </div>
 </div>
 
 <script>
-function upload() {
-  const title = document.getElementById('title').value;
-  const description = document.getElementById('description').value;
-  const file = document.getElementById('fileInput').files[0];
+const tagList = [
+"sad","happy","dark","emotional","aggressive","melancholic","romantic",
+"chill","relax","calm","energetic","uplifting",
+"slow","fast","groovy","bouncy","smooth","heavy","ambient",
+"trap","drill","lofi","hiphop","house","techno","edm","pop","rock","jazz",
+"piano","guitar","violin","synth","bass","drums","808",
+"cinematic","epic","space","dreamy","night","summer","rain","love",
+"vocal","instrumental","loop","background","soundtrack"
+];
 
-  if (!file) {
-    alert("Выбери файл");
+let selected = [];
+
+const input = document.getElementById('tagInput');
+const suggestions = document.getElementById('suggestions');
+const selectedDiv = document.getElementById('selectedTags');
+const popularDiv = document.getElementById('popularTags');
+
+const popular = ["sad","trap","lofi","chill","piano","guitar","epic","ambient"];
+
+popular.forEach(tag => {
+  const el = document.createElement('span');
+  el.innerText = tag;
+  el.onclick = () => addTag(tag);
+  popularDiv.appendChild(el);
+});
+
+input.addEventListener('input', () => {
+  const value = input.value.toLowerCase();
+  suggestions.innerHTML = '';
+
+  if (!value) {
+    suggestions.style.display = 'none';
     return;
   }
 
-  // сохраняем текст
+  const filtered = tagList.filter(tag => tag.includes(value));
+
+  filtered.forEach(tag => {
+    const div = document.createElement('div');
+    div.innerText = tag;
+    div.onclick = () => addTag(tag);
+    suggestions.appendChild(div);
+  });
+
+  suggestions.style.display = 'block';
+});
+
+function addTag(tag) {
+  if (!selected.includes(tag)) {
+    selected.push(tag);
+    renderTags();
+  }
+  input.value = '';
+  suggestions.style.display = 'none';
+}
+
+function removeTag(tag) {
+  selected = selected.filter(t => t !== tag);
+  renderTags();
+}
+
+function renderTags() {
+  selectedDiv.innerHTML = '';
+  selected.forEach(tag => {
+    const el = document.createElement('span');
+    el.innerText = tag + " ✕";
+    el.onclick = () => removeTag(tag);
+    selectedDiv.appendChild(el);
+  });
+}
+
+function upload() {
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
+
   localStorage.setItem('trackTitle', title);
   localStorage.setItem('trackDescription', description);
+  localStorage.setItem('trackTags', selected.join(', '));
 
-  // создаём ссылку на файл
-  const fileURL = URL.createObjectURL(file);
-  localStorage.setItem('trackAudio', fileURL);
-
-  // переход
   window.location.href = 'track.html';
 }
 </script>
