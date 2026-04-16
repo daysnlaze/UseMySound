@@ -33,7 +33,7 @@
       align-items: center;
     }
 
-    /* ВСЕ КРУГИ */
+    /* КРУГИ */
     .circle img {
       position: absolute;
       pointer-events: none;
@@ -47,17 +47,10 @@
       opacity: 0.4;
     }
 
-    /* СРЕДНИЙ */
+    /* ВНУТРЕННИЙ (чуть уменьшен) */
     .circle-big {
-      width: 95%;
+      width: 85%; /* было 95% */
       animation: spin2 25s linear infinite;
-    }
-
-    /* МАЛЕНЬКИЙ */
-    .circle-small {
-      width: 60%;
-      animation: spin3 18s linear infinite;
-      opacity: 0.75;
     }
 
     /* ВРАЩЕНИЯ */
@@ -69,11 +62,6 @@
     @keyframes spin2 {
       from { transform: rotate(360deg); }
       to { transform: rotate(0deg); }
-    }
-
-    @keyframes spin3 {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
     }
 
     /* ТЕКСТ */
@@ -107,7 +95,6 @@
     <div class="circle">
       <img src="circle2.png" class="circle-xl">
       <img src="circle2.png" class="circle-big">
-      <img src="circle2.png" class="circle-small">
 
       <div class="content">
         <h1>How It Works</h1>
