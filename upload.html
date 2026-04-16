@@ -64,22 +64,12 @@
       z-index: 5;
     }
 
-    /* HEADER (НОВЫЙ) */
-    .header-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    /* BACK BUTTON (НОВЫЙ СТИЛЬ) */
+    /* BACK КНОПКА (отдельно от заголовка) */
     .back-btn {
-      position: static;
+      position: absolute;
+      top: 0;
+      left: -80px;
+
       padding: 8px 16px;
       background: rgba(0,0,0,0.6);
       border: 1px solid #444;
@@ -91,6 +81,12 @@
     .back-btn:hover {
       border-color: white;
       transform: scale(1.05);
+    }
+
+    /* ТВОЙ ЦЕНТРАЛЬНЫЙ ЗАГОЛОВОК НЕ ТРОГАЕМ */
+    h1 {
+      margin: 0;
+      font-size: 20px;
     }
 
     input, textarea, select {
@@ -106,7 +102,6 @@
       height: 70px;
     }
 
-    /* TAGS */
     .tags-container {
       position: relative;
     }
@@ -145,7 +140,6 @@
       max-height: 90px;
       overflow-y: auto;
       position: relative;
-      scroll-behavior: smooth;
 
       -webkit-mask-image: linear-gradient(
         to bottom,
@@ -170,12 +164,6 @@
       margin: 3px;
       font-size: 12px;
       cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .all-tags span:hover {
-      border-color: white;
-      transform: scale(1.05);
     }
 
     .btn {
@@ -199,11 +187,11 @@
 
     <div class="content">
 
-      <!-- HEADER -->
-      <div class="header-row">
-        <button class="back-btn" onclick="location.href='index.html'">← Back</button>
-        <h1>Upload Track</h1>
-      </div>
+      <!-- BACK КНОПКА (НЕ ТРОГАЕТ ЦЕНТР) -->
+      <button class="back-btn" onclick="location.href='index.html'">← Back</button>
+
+      <!-- ЦЕНТР НЕ ТРОГАЕМ -->
+      <h1>Upload Track</h1>
 
       <input type="text" placeholder="Track Title">
       <textarea placeholder="Track Description"></textarea>
@@ -218,7 +206,6 @@
 
       <input type="number" placeholder="Price ($)">
 
-      <!-- TAGS -->
       <div class="tags-container">
         <input type="text" id="tagInput" placeholder="Add tags...">
         <div class="suggestions" id="suggestions"></div>
