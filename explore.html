@@ -1,1 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Explore - UseMySound</title>
 
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      font-family: sans-serif;
+      color: white;
+    }
+
+    .header {
+      padding: 20px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search {
+      flex: 1;
+      padding: 10px;
+      background: #111;
+      border: 1px solid #333;
+      color: white;
+    }
+
+    .back {
+      padding: 8px 16px;
+      border: 1px solid #444;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* ТЕГИ */
+    .tags {
+      padding: 10px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    .tags span {
+      display: inline-block;
+      border: 1px solid #444;
+      padding: 5px 10px;
+      margin: 4px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .tags span:hover {
+      border-color: white;
+    }
+
+    /* СЕТКА */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid #222;
+      padding: 15px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .card p {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    .card .tags {
+      border: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+      filter: invert(1);
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <button class="back" onclick="location.href='index.html'">←</button>
+  <input type="text" class="search" id="search" placeholder="Search tracks...">
+</div>
+
+<div class="tags" id="tagFilter"></div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const tagFilter = document.getElementById('tagFilter');
+
+const tags = [
+"sad","happy","trap","drill","lofi","chill","piano","guitar",
+"epic","ambient","dark","emotional","808","house","techno"
+];
+
+let activeTag = null;
+
+// РЕНДЕР ТЕГОВ
+tags.forEach(tag => {
+  const el = document.createElement('span');
+  el.innerText = tag;
+  el.onclick = () => {
+    activeTag = tag;
+    render();
+  };
+  tagFilter.appendChild(el);
+});
+
+// ДАННЫЕ (пока 1 трек)
+function getTracks() {
+  return [{
+    title: localStorage.getItem('trackTitle') || "No title",
+    description: localStorage.getItem('trackDescription') || "",
+    tags: (localStorage.getItem('trackTags') || "").split(", "),
+    audio: localStorage.getItem('trackAudio')
+  }];
+}
+
+// РЕНДЕР
+function render() {
+  const value = search.value.toLowerCase();
+  grid.innerHTML = '';
+
+  getTracks().forEach(track => {
+
+    if (value && !track.title.toLowerCase().includes(value)) return;
+    if (activeTag && !track.tags.includes(activeTag)) return;
+
+    const card = document.createElement('div');
+    card.className = "card";
+
+    card.innerHTML = `
+      <h3>${track.title}</h3>
+      <p>${track.description}</p>
+
+      <div class="tags">
+        ${track.tags.map(t => `<span>${t}</span>`).join('')}
+      </div>
+
+      ${track.audio ? `<audio controls src="${track.audio}"></audio>` : ''}
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+search.addEventListener('input', render);
+
+render();
+</script>
+
+</body>
+</html>
