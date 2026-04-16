@@ -156,7 +156,8 @@
 
       <textarea id="description" placeholder="Track Description"></textarea>
 
-      <input type="file" id="fileInput" accept="audio/*">
+      <!-- ФАЙЛ (исправленный) -->
+      <input type="file" id="fileInput" accept=".mp3,.wav,.ogg,audio/*">
 
       <select id="license">
         <option>License Type</option>
@@ -256,10 +257,19 @@ function renderTags() {
 function upload() {
   const title = document.getElementById('title').value;
   const description = document.getElementById('description').value;
+  const file = document.getElementById('fileInput').files[0];
+
+  if (!file) {
+    alert("Выбери аудио файл");
+    return;
+  }
 
   localStorage.setItem('trackTitle', title);
   localStorage.setItem('trackDescription', description);
   localStorage.setItem('trackTags', selected.join(', '));
+
+  const url = URL.createObjectURL(file);
+  localStorage.setItem('trackAudio', url);
 
   window.location.href = 'track.html';
 }
