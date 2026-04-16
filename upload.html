@@ -23,7 +23,6 @@
       align-items: center;
     }
 
-    /* КРУГИ */
     .circle {
       position: relative;
       width: 130vw;
@@ -62,7 +61,6 @@
       to { transform: rotate(0deg); }
     }
 
-    /* КОНТЕНТ */
     .content {
       position: relative;
       width: 400px;
@@ -75,8 +73,7 @@
       font-size: 26px;
     }
 
-    /* ПОЛЯ */
-    input, select {
+    input, textarea, select {
       width: 100%;
       padding: 12px;
       margin-bottom: 10px;
@@ -86,14 +83,11 @@
       outline: none;
     }
 
-    input::file-selector-button {
-      background: white;
-      border: none;
-      padding: 6px 10px;
-      cursor: pointer;
+    textarea {
+      height: 80px;
+      resize: none;
     }
 
-    /* КНОПКА */
     .btn {
       margin-top: 10px;
       padding: 12px 40px;
@@ -124,7 +118,9 @@
       <div class="content">
         <h1>Upload Track</h1>
 
-        <input type="text" placeholder="Track Title">
+        <input type="text" id="title" placeholder="Track Title">
+
+        <textarea id="description" placeholder="Track Description"></textarea>
 
         <input type="file" accept="audio/*">
 
@@ -137,12 +133,24 @@
 
         <input type="number" placeholder="Price ($)">
 
-        <button class="btn">Upload</button>
+        <button class="btn" onclick="saveTrack()">Upload</button>
       </div>
 
     </div>
 
   </div>
+
+  <script>
+    function saveTrack() {
+      const title = document.getElementById('title').value;
+      const description = document.getElementById('description').value;
+
+      localStorage.setItem('trackTitle', title);
+      localStorage.setItem('trackDescription', description);
+
+      window.location.href = 'track.html';
+    }
+  </script>
 
 </body>
 </html>
