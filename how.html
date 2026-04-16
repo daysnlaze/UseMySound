@@ -33,7 +33,7 @@
       align-items: center;
     }
 
-    /* КРУГИ */
+    /* ВСЕ КРУГИ */
     .circle img {
       position: absolute;
       pointer-events: none;
@@ -47,10 +47,12 @@
       opacity: 0.4;
     }
 
-    /* ВНУТРЕННИЙ (чуть уменьшен) */
+    /* СРЕДНИЙ (приглушённый и уменьшенный) */
     .circle-big {
-      width: 85%; /* было 95% */
+      width: 80%;
       animation: spin2 25s linear infinite;
+      opacity: 0.6;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.15));
     }
 
     /* ВРАЩЕНИЯ */
