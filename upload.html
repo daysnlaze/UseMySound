@@ -68,28 +68,20 @@
       z-index: 5;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      font-size: 26px;
-    }
-
-    input, textarea, select {
+    input, textarea {
       width: 100%;
       padding: 12px;
       margin-bottom: 10px;
       background: rgba(255,255,255,0.05);
       border: 1px solid #444;
       color: white;
-      outline: none;
     }
 
     textarea {
       height: 80px;
-      resize: none;
     }
 
     .btn {
-      margin-top: 10px;
       padding: 12px 40px;
       background: rgba(0,0,0,0.6);
       color: white;
@@ -103,54 +95,52 @@
       border-color: white;
       background: rgba(255,255,255,0.1);
     }
-
   </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
+  <div class="circle">
+    <img src="circle2.png" class="circle-xl">
+    <img src="circle2.png" class="circle-big">
 
-    <div class="circle">
-      <img src="circle2.png" class="circle-xl">
-      <img src="circle2.png" class="circle-big">
+    <div class="content">
+      <h1>Upload Track</h1>
 
-      <div class="content">
-        <h1>Upload Track</h1>
+      <input type="text" id="title" placeholder="Track Title">
+      <textarea id="description" placeholder="Track Description"></textarea>
+      <input type="file" id="fileInput" accept="audio/*">
 
-        <input type="text" id="title" placeholder="Track Title">
-
-        <textarea id="description" placeholder="Track Description"></textarea>
-
-        <input type="file" accept="audio/*">
-
-        <select>
-          <option>License Type</option>
-          <option>Exclusive</option>
-          <option>Non-exclusive</option>
-          <option>Rent</option>
-        </select>
-
-        <input type="number" placeholder="Price ($)">
-
-        <button class="btn" onclick="saveTrack()">Upload</button>
-      </div>
-
+      <button class="btn" onclick="upload()">Upload</button>
     </div>
 
   </div>
+</div>
 
-  <script>
-    function saveTrack() {
-      const title = document.getElementById('title').value;
-      const description = document.getElementById('description').value;
+<script>
+function upload() {
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
+  const file = document.getElementById('fileInput').files[0];
 
-      localStorage.setItem('trackTitle', title);
-      localStorage.setItem('trackDescription', description);
+  if (!file) {
+    alert("Выбери файл");
+    return;
+  }
 
-      window.location.href = 'track.html';
-    }
-  </script>
+  // сохраняем текст
+  localStorage.setItem('trackTitle', title);
+  localStorage.setItem('trackDescription', description);
+
+  // создаём ссылку на файл
+  const fileURL = URL.createObjectURL(file);
+  localStorage.setItem('trackAudio', fileURL);
+
+  // переход
+  window.location.href = 'track.html';
+}
+</script>
 
 </body>
 </html>
