@@ -23,49 +23,64 @@
       align-items: center;
     }
 
-    /* БОЛЬШОЙ КРУГ */
+    /* ОБЩИЙ КРУГ */
     .circle {
-  position: relative;
-  width: 120vw;
-  height: 120vw;
-  max-width: none;
-  max-height: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+      position: relative;
+      width: 120vw;
+      height: 120vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
+    /* ОБА КРУГА */
     .circle img {
       position: absolute;
-      width: 80%;
-      animation: spin 20s linear infinite;
-      filter: drop-shadow(0 0 20px white);
       pointer-events: none;
     }
 
-    /* ТЕКСТ ВНУТРИ */
+    /* БОЛЬШОЙ */
+    .circle-big {
+      width: 100%;
+      animation: spin1 25s linear infinite;
+    }
+
+    /* МАЛЕНЬКИЙ */
+    .circle-small {
+      width: 70%;
+      animation: spin2 18s linear infinite;
+      opacity: 0.8;
+    }
+
+    /* ВРАЩЕНИЕ */
+    @keyframes spin1 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spin2 {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* ТЕКСТ */
     .content {
       position: relative;
-      width: 70%;
+      width: 60%;
       text-align: center;
       line-height: 1.6;
       font-size: 15px;
+      z-index: 2;
     }
 
     h1 {
       margin-bottom: 20px;
-      font-size: 24px;
+      font-size: 26px;
     }
 
     p {
       margin-bottom: 10px;
       opacity: 0.9;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
     }
 
   </style>
@@ -76,7 +91,8 @@
   <div class="container">
 
     <div class="circle">
-      <img src="circle2.png">
+      <img src="circle2.png" class="circle-big">
+      <img src="circle2.png" class="circle-small">
 
       <div class="content">
         <h1>How It Works</h1>
