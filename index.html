@@ -75,14 +75,14 @@
       z-index: 1;
     }
 
-    /* ХОВЕР (теперь белый, без зелёного) */
+    /* ХОВЕР */
     .btn:hover {
       transform: scale(1.1);
       background: rgba(255,255,255,0.1);
       border-color: white;
     }
 
-    /* АКТИВНАЯ КНОПКА */
+    /* АКТИВНАЯ */
     .btn.active {
       transform: scale(1.05);
       z-index: 10;
@@ -119,15 +119,18 @@
     </div>
 
     <!-- КНОПКИ -->
-    <button class="btn fade" style="top:80.955%; left:5.5%;">
+    <button class="btn fade" style="top:80.955%; left:5.5%;"
+      onclick="window.location.href='upload.html'">
       Upload Track
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;">
+    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;"
+      onclick="window.location.href='explore.html'">
       Explore Sound
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;">
+    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;"
+      onclick="window.location.href='how.html'">
       How It Works
     </button>
 
