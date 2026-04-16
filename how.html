@@ -1,1 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>How It Works - UseMySound</title>
 
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: white;
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* БОЛЬШОЙ КРУГ */
+    .circle {
+      position: relative;
+      width: 80vw;
+      height: 80vw;
+      max-width: 800px;
+      max-height: 800px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .circle img {
+      position: absolute;
+      width: 100%;
+      animation: spin 20s linear infinite;
+      filter: drop-shadow(0 0 20px white);
+      pointer-events: none;
+    }
+
+    /* ТЕКСТ ВНУТРИ */
+    .content {
+      position: relative;
+      width: 70%;
+      text-align: center;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      opacity: 0.9;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="circle">
+      <img src="circle2.png">
+
+      <div class="content">
+        <h1>How It Works</h1>
+
+        <p>
+          UseMySound is a marketplace where creators can buy, sell and license music directly.
+        </p>
+
+        <p>
+          Artists upload their tracks, set prices and choose how their music can be used.
+          Buyers can explore sounds, preview them and purchase the right license.
+        </p>
+
+        <p>
+          Music can be sold as exclusive, non-exclusive or rented for temporary use.
+          Each option gives different rights depending on the project.
+        </p>
+
+        <p>
+          Payments are handled securely, and the creator receives the money after delivery.
+        </p>
+
+        <p>
+          This allows musicians to earn from their work, while creators get instant access
+          to unique music for videos, games and content.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
