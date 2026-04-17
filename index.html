@@ -20,6 +20,7 @@
       animation: fadeIn 2s ease-in;
     }
 
+    /* ФОН */
     .bg {
       max-width: 95vw;
       max-height: 95vh;
@@ -28,7 +29,7 @@
       user-select: none;
     }
 
-    /* КРУГ */
+    /* ОБЁРТКА */
     .circle-wrapper {
       position: absolute;
       top: 20px;
@@ -36,9 +37,15 @@
       width: 50%;
     }
 
+    /* ВРАЩЕНИЕ */
     .circle-spin {
       width: 60%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       animation: spin 12s linear infinite;
+      transform-origin: center center;
+      will-change: transform;
     }
 
     .circle-spin img {
@@ -48,59 +55,19 @@
       filter: drop-shadow(0 0 10px white);
     }
 
-    /* ЦЕНТР КРУГА (фикс) */
-    .center-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 55%; /* регулируй размер */
-      aspect-ratio: 1/1;
-      border-radius: 50%;
-      overflow: hidden;
-      z-index: 5;
-    }
-
-    /* АВАТАР */
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* КНОПКА "+" */
-    .upload-btn {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 2px dashed white;
-      background: rgba(255,255,255,0.05);
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
     @keyframes spin {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
 
-    /* КНОПКИ (НЕ ТРОГАЛ) */
+    /* КНОПКИ */
     .btn {
       position: absolute;
       padding: 13px 89px;
       background: rgba(0,0,0,0.6);
       color: white;
       border: 1px solid #444;
+      border-radius: 0px;
       cursor: pointer;
       transition: 0.3s;
       backdrop-filter: blur(6px);
@@ -108,12 +75,23 @@
       z-index: 1;
     }
 
+    /* ХОВЕР */
     .btn:hover {
       transform: scale(1.1);
       background: rgba(255,255,255,0.1);
       border-color: white;
     }
 
+    /* АКТИВНАЯ */
+    .btn.active {
+      transform: scale(1.05);
+      z-index: 10;
+      background: rgba(0,0,0,0.85);
+      border-color: white;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    /* ПЛАВНОЕ ПОЯВЛЕНИЕ */
     .fade {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -130,58 +108,45 @@
 
   <div class="container">
 
-    <img src="design2.png" class="bg">
+    <!-- ФОН -->
+    <img src="design2.png" class="bg" draggable="false">
 
+    <!-- КРУГ -->
     <div class="circle-wrapper">
-
       <div class="circle-spin">
         <img src="circle2.png">
       </div>
-
-      <!-- ЦЕНТР -->
-      <div class="center-box">
-
-        <div class="avatar">
-          <img id="avatarImg" src="">
-        </div>
-
-        <label class="upload-btn" id="uploadBtn">
-          +
-          <input type="file" id="uploadAvatar" accept="image/*">
-        </label>
-
-      </div>
-
     </div>
 
-    <!-- ТВОИ КНОПКИ -->
-    <button class="btn fade" style="top:80.955%; left:5.5%;">
+    <!-- КНОПКИ -->
+    <button class="btn fade" style="top:80.955%; left:5.5%;"
+      onclick="window.location.href='upload.html'">
       Upload Track
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;">
+    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;"
+      onclick="window.location.href='explore.html'">
       Explore Sound
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;">
+    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;"
+      onclick="window.location.href='how.html'">
       How It Works
     </button>
 
   </div>
 
   <script>
-    const upload = document.getElementById('uploadAvatar');
-    const avatar = document.getElementById('avatarImg');
-    const btn = document.getElementById('uploadBtn');
+    const buttons = document.querySelectorAll('.btn');
 
-    upload.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        avatar.src = URL.createObjectURL(file);
-        btn.style.display = 'none';
-      }
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
     });
   </script>
 
 </body>
 </html>
+
