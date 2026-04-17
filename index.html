@@ -29,7 +29,7 @@
       user-select: none;
     }
 
-    /* ОБЁРТКА КРУГА */
+    /* КРУГ */
     .circle-wrapper {
       position: absolute;
       top: 20px;
@@ -37,7 +37,6 @@
       width: 50%;
     }
 
-    /* ВРАЩЕНИЕ */
     .circle-spin {
       width: 60%;
       display: flex;
@@ -58,13 +57,13 @@
       to { transform: rotate(360deg); }
     }
 
-    /* АВАТАРКА */
+    /* АВАТАРКА (ЕЩЁ БОЛЬШЕ) */
     .avatar-container {
       position: absolute;
       top: 50%;
       left: 30%;
       transform: translate(-50%, -50%);
-      width: 30%;
+      width: 38%;
       aspect-ratio: 1 / 1;
       z-index: 2;
     }
@@ -80,7 +79,7 @@
         0 0 12px rgba(255,255,255,0.25);
     }
 
-    /* КНОПКА + */
+    /* ПЛЮС */
     .add-btn {
       position: absolute;
       top: 50%;
@@ -104,6 +103,10 @@
     .add-btn:hover {
       transform: translate(-50%, -50%) scale(1.1);
       border-color: white;
+    }
+
+    .add-btn.hidden {
+      display: none;
     }
 
     #uploadAvatar {
@@ -154,30 +157,24 @@
 
   <div class="container">
 
-    <!-- ФОН -->
     <img src="design2.png" class="bg" draggable="false">
 
-    <!-- КРУГ -->
     <div class="circle-wrapper">
       <div class="circle-spin">
         <img src="circle2.png">
       </div>
 
-      <!-- АВАТАРКА -->
       <div class="avatar-container">
         <img src="avatar.png" class="avatar" id="avatar">
 
-        <!-- КНОПКА + -->
-        <div class="add-btn" onclick="document.getElementById('uploadAvatar').click()">
+        <div class="add-btn" id="addBtn" onclick="document.getElementById('uploadAvatar').click()">
           +
         </div>
       </div>
     </div>
 
-    <!-- INPUT -->
     <input type="file" id="uploadAvatar">
 
-    <!-- КНОПКИ -->
     <button class="btn fade" style="top:80.955%; left:5.5%;"
       onclick="window.location.href='upload.html'">
       Upload Track
@@ -207,11 +204,13 @@
 
     const upload = document.getElementById('uploadAvatar');
     const avatar = document.getElementById('avatar');
+    const addBtn = document.getElementById('addBtn');
 
     upload.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         avatar.src = URL.createObjectURL(file);
+        addBtn.classList.add('hidden'); // скрываем плюс
       }
     });
   </script>
