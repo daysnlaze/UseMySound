@@ -17,6 +17,7 @@
 
     .container {
       position: relative;
+      animation: fadeIn 2s ease-in;
     }
 
     .bg {
@@ -24,6 +25,7 @@
       max-height: 95vh;
       display: block;
       pointer-events: none;
+      user-select: none;
     }
 
     /* КРУГ */
@@ -42,37 +44,29 @@
     .circle-spin img {
       width: 100%;
       display: block;
+      pointer-events: none;
       filter: drop-shadow(0 0 10px white);
     }
 
-    /* ЦЕНТР КРУГА */
+    /* ЦЕНТР КРУГА (фикс) */
     .center-box {
       position: absolute;
       top: 50%;
-      left: 30%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      width: 34%; /* размер аватарки */
+      width: 55%; /* регулируй размер */
       aspect-ratio: 1/1;
       border-radius: 50%;
       overflow: hidden;
-      z-index: 3;
+      z-index: 5;
     }
 
     /* АВАТАР */
-    .avatar {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-
     .avatar img {
-      position: absolute;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      top: 0;
-      left: 0;
-      display: none;
+      display: block;
     }
 
     /* КНОПКА "+" */
@@ -89,12 +83,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: 0.3s;
-    }
-
-    .upload-btn:hover {
-      background: rgba(255,255,255,0.1);
-      transform: scale(1.1);
     }
 
     input[type="file"] {
@@ -106,7 +94,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* КНОПКИ */
+    /* КНОПКИ (НЕ ТРОГАЛ) */
     .btn {
       position: absolute;
       padding: 13px 89px;
@@ -117,12 +105,22 @@
       transition: 0.3s;
       backdrop-filter: blur(6px);
       font-size: 15px;
+      z-index: 1;
     }
 
     .btn:hover {
       transform: scale(1.1);
       background: rgba(255,255,255,0.1);
       border-color: white;
+    }
+
+    .fade {
+      opacity: 0;
+      animation: fadeIn 1.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
 
   </style>
@@ -134,7 +132,6 @@
 
     <img src="design2.png" class="bg">
 
-    <!-- КРУГ -->
     <div class="circle-wrapper">
 
       <div class="circle-spin">
@@ -145,7 +142,7 @@
       <div class="center-box">
 
         <div class="avatar">
-          <img id="avatarImg">
+          <img id="avatarImg" src="">
         </div>
 
         <label class="upload-btn" id="uploadBtn">
@@ -157,16 +154,16 @@
 
     </div>
 
-    <!-- КНОПКИ -->
-    <button class="btn" style="top:80%; left:5%;">
+    <!-- ТВОИ КНОПКИ -->
+    <button class="btn fade" style="top:80.955%; left:5.5%;">
       Upload Track
     </button>
 
-    <button class="btn" style="top:80%; left:35%;">
+    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;">
       Explore Sound
     </button>
 
-    <button class="btn" style="top:80%; left:65%;">
+    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;">
       How It Works
     </button>
 
@@ -181,7 +178,6 @@
       const file = e.target.files[0];
       if (file) {
         avatar.src = URL.createObjectURL(file);
-        avatar.style.display = 'block';
         btn.style.display = 'none';
       }
     });
