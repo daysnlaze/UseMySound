@@ -26,7 +26,6 @@
       max-height: 95vh;
       display: block;
       pointer-events: none;
-      user-select: none;
     }
 
     /* КРУГ */
@@ -47,8 +46,6 @@
 
     .circle-spin img {
       width: 100%;
-      display: block;
-      pointer-events: none;
       filter: drop-shadow(0 0 10px white);
     }
 
@@ -57,7 +54,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* АВАТАРКА (ЕЩЁ БОЛЬШЕ) */
+    /* АВАТАРКА */
     .avatar-container {
       position: absolute;
       top: 50%;
@@ -96,7 +93,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      backdrop-filter: blur(4px);
       transition: 0.3s;
     }
 
@@ -105,12 +101,32 @@
       border-color: white;
     }
 
-    .add-btn.hidden {
+    .hidden {
       display: none;
     }
 
     #uploadAvatar {
       display: none;
+    }
+
+    /* НИКНЕЙМ */
+    .nickname {
+      position: absolute;
+      top: 45%;
+      left: 75%;
+      transform: translateY(-50%);
+      font-size: 42px;
+      color: white;
+      cursor: pointer;
+
+      text-shadow:
+        0 0 5px rgba(255,255,255,0.9),
+        0 0 10px rgba(255,255,255,0.7),
+        0 0 20px rgba(255,255,255,0.4);
+    }
+
+    .nickname:hover {
+      opacity: 0.8;
     }
 
     /* КНОПКИ */
@@ -122,23 +138,12 @@
       border: 1px solid #444;
       cursor: pointer;
       transition: 0.3s;
-      backdrop-filter: blur(6px);
       font-size: 15px;
-      z-index: 1;
     }
 
     .btn:hover {
       transform: scale(1.1);
-      background: rgba(255,255,255,0.1);
       border-color: white;
-    }
-
-    .btn.active {
-      transform: scale(1.05);
-      z-index: 10;
-      background: rgba(0,0,0,0.85);
-      border-color: white;
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
     }
 
     .fade {
@@ -157,7 +162,7 @@
 
   <div class="container">
 
-    <img src="design2.png" class="bg" draggable="false">
+    <img src="design2.png" class="bg">
 
     <div class="circle-wrapper">
       <div class="circle-spin">
@@ -167,10 +172,15 @@
       <div class="avatar-container">
         <img src="avatar.png" class="avatar" id="avatar">
 
-        <div class="add-btn" id="addBtn" onclick="document.getElementById('uploadAvatar').click()">
+        <div class="add-btn" id="addBtn" onclick="uploadAvatar.click()">
           +
         </div>
       </div>
+    </div>
+
+    <!-- НИК -->
+    <div class="nickname" id="nickname">
+      YOUR NAME
     </div>
 
     <input type="file" id="uploadAvatar">
@@ -193,24 +203,39 @@
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.btn');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    const upload = document.getElementById('uploadAvatar');
     const avatar = document.getElementById('avatar');
+    const uploadAvatar = document.getElementById('uploadAvatar');
     const addBtn = document.getElementById('addBtn');
+    const nickname = document.getElementById('nickname');
 
-    upload.addEventListener('change', (e) => {
+    // загрузка аватарки
+    uploadAvatar.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         avatar.src = URL.createObjectURL(file);
-        addBtn.classList.add('hidden'); // скрываем плюс
+        addBtn.classList.add('hidden');
+        localStorage.setItem('avatar', avatar.src);
+      }
+    });
+
+    // загрузка при старте
+    const savedAvatar = localStorage.getItem('avatar');
+    if (savedAvatar) {
+      avatar.src = savedAvatar;
+      addBtn.classList.add('hidden');
+    }
+
+    // ник
+    const savedName = localStorage.getItem('nickname');
+    if (savedName) {
+      nickname.textContent = savedName;
+    }
+
+    nickname.addEventListener('click', () => {
+      const name = prompt("Enter your nickname:");
+      if (name && name.trim() !== "") {
+        nickname.textContent = name;
+        localStorage.setItem('nickname', name);
       }
     });
   </script>
