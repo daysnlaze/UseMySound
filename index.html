@@ -17,7 +17,6 @@
 
     .container {
       position: relative;
-      animation: fadeIn 2s ease-in;
     }
 
     .bg {
@@ -27,7 +26,7 @@
       pointer-events: none;
     }
 
-    /* ОБЩИЙ БЛОК КРУГА */
+    /* КРУГ */
     .circle-wrapper {
       position: absolute;
       top: 20px;
@@ -35,7 +34,6 @@
       width: 50%;
     }
 
-    /* ВРАЩЕНИЕ */
     .circle-spin {
       width: 60%;
       animation: spin 12s linear infinite;
@@ -47,29 +45,39 @@
       filter: drop-shadow(0 0 10px white);
     }
 
-    /* ЦЕНТР (АВАТАР + КНОПКА) */
+    /* ЦЕНТР КРУГА */
     .center-box {
       position: absolute;
       top: 50%;
-      left: 30%; /* подгон под твой круг */
+      left: 30%;
       transform: translate(-50%, -50%);
-      width: 18%;
+      width: 34%; /* размер аватарки */
       aspect-ratio: 1/1;
       border-radius: 50%;
       overflow: hidden;
       z-index: 3;
     }
 
-    /* АВАТАРКА */
+    /* АВАТАР */
+    .avatar {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
     .avatar img {
+      position: absolute;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      top: 0;
+      left: 0;
       display: none;
     }
 
     /* КНОПКА "+" */
     .upload-btn {
+      position: absolute;
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -109,22 +117,12 @@
       transition: 0.3s;
       backdrop-filter: blur(6px);
       font-size: 15px;
-      z-index: 1;
     }
 
     .btn:hover {
       transform: scale(1.1);
       background: rgba(255,255,255,0.1);
       border-color: white;
-    }
-
-    .fade {
-      opacity: 0;
-      animation: fadeIn 1.5s forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
     }
 
   </style>
@@ -146,12 +144,10 @@
       <!-- ЦЕНТР -->
       <div class="center-box">
 
-        <!-- АВАТАР -->
         <div class="avatar">
           <img id="avatarImg">
         </div>
 
-        <!-- КНОПКА "+" -->
         <label class="upload-btn" id="uploadBtn">
           +
           <input type="file" id="uploadAvatar" accept="image/*">
@@ -162,15 +158,15 @@
     </div>
 
     <!-- КНОПКИ -->
-    <button class="btn fade" style="top:80.955%; left:5.5%;">
+    <button class="btn" style="top:80%; left:5%;">
       Upload Track
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;">
+    <button class="btn" style="top:80%; left:35%;">
       Explore Sound
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;">
+    <button class="btn" style="top:80%; left:65%;">
       How It Works
     </button>
 
@@ -186,7 +182,7 @@
       if (file) {
         avatar.src = URL.createObjectURL(file);
         avatar.style.display = 'block';
-        btn.style.display = 'none'; // скрываем "+"
+        btn.style.display = 'none';
       }
     });
   </script>
