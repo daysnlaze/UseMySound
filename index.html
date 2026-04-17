@@ -20,16 +20,14 @@
       animation: fadeIn 2s ease-in;
     }
 
-    /* ФОН */
     .bg {
       max-width: 95vw;
       max-height: 95vh;
       display: block;
       pointer-events: none;
-      user-select: none;
     }
 
-    /* ОБЁРТКА КРУГА */
+    /* ОБЩИЙ БЛОК КРУГА */
     .circle-wrapper {
       position: absolute;
       top: 20px;
@@ -37,41 +35,62 @@
       width: 50%;
     }
 
-    /* ВРАЩАЮЩИЙСЯ КРУГ */
+    /* ВРАЩЕНИЕ */
     .circle-spin {
       width: 60%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       animation: spin 12s linear infinite;
     }
 
     .circle-spin img {
       width: 100%;
       display: block;
-      pointer-events: none;
       filter: drop-shadow(0 0 10px white);
     }
 
-    /* АВАТАРКА (НЕ КРУТИТСЯ) */
-    .avatar {
+    /* ЦЕНТР (АВАТАР + КНОПКА) */
+    .center-box {
       position: absolute;
-      width: 24%;
+      top: 50%;
+      left: 30%; /* подгон под твой круг */
+      transform: translate(-50%, -50%);
+      width: 18%;
       aspect-ratio: 1/1;
-      top: 20px;           /* подстрой под свой круг */
-      left: 50px;          /* подстрой под свой круг */
-      transform: translate(60%, 40%);
       border-radius: 50%;
       overflow: hidden;
-      border: 2px solid white;
-      box-shadow: 0 0 10px white;
-      z-index: 2;
+      z-index: 3;
     }
 
+    /* АВАТАРКА */
     .avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: none;
+    }
+
+    /* КНОПКА "+" */
+    .upload-btn {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px dashed white;
+      background: rgba(255,255,255,0.05);
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .upload-btn:hover {
+      background: rgba(255,255,255,0.1);
+      transform: scale(1.1);
+    }
+
+    input[type="file"] {
+      display: none;
     }
 
     @keyframes spin {
@@ -99,14 +118,6 @@
       border-color: white;
     }
 
-    .btn.active {
-      transform: scale(1.05);
-      z-index: 10;
-      background: rgba(0,0,0,0.85);
-      border-color: white;
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
-    }
-
     .fade {
       opacity: 0;
       animation: fadeIn 1.5s forwards;
@@ -123,62 +134,59 @@
 
   <div class="container">
 
-    <!-- ФОН -->
-    <img src="design2.png" class="bg" draggable="false">
+    <img src="design2.png" class="bg">
 
     <!-- КРУГ -->
     <div class="circle-wrapper">
+
       <div class="circle-spin">
         <img src="circle2.png">
       </div>
-    </div>
 
-    <!-- АВАТАРКА -->
-    <div class="avatar">
-      <img src="avatar.png" id="avatarImg">
-    </div>
+      <!-- ЦЕНТР -->
+      <div class="center-box">
 
-    <!-- ЗАГРУЗКА АВАТАРКИ -->
-    <input type="file" id="uploadAvatar" 
-      style="position:absolute; top:10px; left:10px; z-index:5;"
-      accept="image/*">
+        <!-- АВАТАР -->
+        <div class="avatar">
+          <img id="avatarImg">
+        </div>
+
+        <!-- КНОПКА "+" -->
+        <label class="upload-btn" id="uploadBtn">
+          +
+          <input type="file" id="uploadAvatar" accept="image/*">
+        </label>
+
+      </div>
+
+    </div>
 
     <!-- КНОПКИ -->
-    <button class="btn fade" style="top:80.955%; left:5.5%;"
-      onclick="window.location.href='upload.html'">
+    <button class="btn fade" style="top:80.955%; left:5.5%;">
       Upload Track
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;"
-      onclick="window.location.href='explore.html'">
+    <button class="btn fade" style="top:80.955%; left:35%; animation-delay:0.2s;">
       Explore Sound
     </button>
 
-    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;"
-      onclick="window.location.href='how.html'">
+    <button class="btn fade" style="top:80.955%; left:65.35%; animation-delay:0.4s;">
       How It Works
     </button>
 
   </div>
 
   <script>
-    const buttons = document.querySelectorAll('.btn');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    // Загрузка аватарки
     const upload = document.getElementById('uploadAvatar');
     const avatar = document.getElementById('avatarImg');
+    const btn = document.getElementById('uploadBtn');
 
     upload.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (file) {
         avatar.src = URL.createObjectURL(file);
+        avatar.style.display = 'block';
+        btn.style.display = 'none'; // скрываем "+"
       }
     });
   </script>
